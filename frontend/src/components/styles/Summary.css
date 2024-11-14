@@ -1,0 +1,144 @@
+/* General Container */
+.summary-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Back Button */
+.back-button {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #2980b9;
+}
+
+/* Filter Section */
+.filter-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+  justify-content: center;
+}
+
+.filter-container label {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.filter-container label span {
+  margin-right: 10px;
+}
+
+.filter-container select,
+.filter-container input {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  min-width: 160px;
+}
+
+.filter-container select {
+  cursor: pointer;
+}
+
+/* Title */
+.summary-container h2 {
+  font-size: 26px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333;
+}
+
+/* Category-wise Expenses Section */
+.category-summary {
+  margin-bottom: 20px;
+}
+
+.category-summary h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #3498db;
+}
+
+.category-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.category-item {
+  font-size: 16px;
+  color: #333;
+  padding: 8px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Total Expense Section */
+.total-expense {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.total-expense h3 {
+  font-size: 20px;
+  color: #3498db;
+}
+
+.total-expense p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* No Expenses Found */
+.no-expenses {
+  font-size: 18px;
+  color: #888;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .summary-container {
+    padding: 20px;
+  }
+
+  .filter-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .category-list {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-container label {
+    margin-bottom: 10px;
+  }
+
+  .category-item {
+    font-size: 14px;
+    padding: 6px;
+  }
+}

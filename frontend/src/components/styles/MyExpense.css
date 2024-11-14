@@ -1,0 +1,128 @@
+/* MyExpense Component Styles */
+.my-expense-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.go-home-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.go-home-button:hover {
+  background-color: #45a049;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.predicted-expenses {
+  margin-top: 30px;
+  text-align: center;  /* Center the predicted expenses title */
+}
+
+.predicted-expenses h2 {
+  font-size: 28px;  /* Increased font size for better visibility */
+  margin-bottom: 15px;
+}
+
+.predicted-expenses ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.predicted-expenses li {
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+.expense-form {
+  margin-top: 40px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.expense-form h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.expense-form .form-group {
+  margin-bottom: 20px;
+}
+
+.expense-form label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.expense-form input[type="number"],
+.expense-form button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.expense-form button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.expense-form button:hover {
+  background-color: #45a049;
+}
+
+.category-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category-radio-group div {
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+.category-radio-group label {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.total-expense {
+  font-size: 30px;  /* Increased font size for Total Expense */
+  font-weight: bold;
+}

@@ -1,0 +1,13 @@
+month,category,expense_amount,month_type,food_level,entertainment_flag
+1,Food,1500,Regular,Low,Yes
+2,Entertainment,400,Regular,High,No
+3,Food,1800,Regular,Medium,Yes
+4,Shopping,5000,Vacation,Low,No
+5,Food,3000,Vacation,High,Yes
+6,Entertainment,500,Vacation,Low,No
+7,Sports,800,Holiday,Medium,Yes
+8,Food,3500,Holiday,High,No
+9,Shopping,4500,Holiday,Low,Yes
+10,Entertainment,600,Holiday,Medium,No
+11,Food,4500,Regular,High,Yes
+12,Entertainment,700,Regular,Low,No
