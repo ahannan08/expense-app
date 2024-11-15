@@ -22,7 +22,7 @@ migrate = Migrate(app, db)
 
 # Register blueprints
 app.register_blueprint(expense_bp, url_prefix="/api")
-# app.register_blueprint(category_bp, url_prefix='/api')
+app.register_blueprint(category_bp, url_prefix='/api')
 app.register_blueprint(predictions_bp, url_prefix='/api/predictions')
 
 # Test route to confirm app is working
