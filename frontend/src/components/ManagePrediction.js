@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 
 const ManagePrediction = ({ prediction, budget, month, year, predictionExists }) => {
+
+  const API_URL = process.env.REACT_APP_API_URL;  // Default to local URL for development
+
   const handleSaveOrUpdatePrediction = async () => {
     const payload = {
       month: parseInt(month),
@@ -17,12 +20,12 @@ const ManagePrediction = ({ prediction, budget, month, year, predictionExists })
         const confirmUpdate = window.confirm('Prediction for this month already exists. Do you want to update it?');
         if (confirmUpdate) {
           payload.confirm = true;  // Adding confirm flag to payload
-          await axios.post('http://127.0.0.1:5000/api/predictions/update-all-predictions', [payload]);
+          await axios.post(`${API_URL}/api/predictions/update-all-predictions`, [payload]);
           alert('Prediction updated successfully.');
         }
       } else {
         // Save new prediction
-        const response = await axios.post('http://127.0.0.1:5000/api/predictions/save-prediction', payload);
+        const response = await axios.post(`${API_URL}/api/predictions/save-prediction`, payload);
         if (response.status === 200) {
           alert('Prediction saved successfully.');
         } else {

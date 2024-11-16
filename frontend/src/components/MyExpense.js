@@ -6,6 +6,7 @@ import './styles/MyExpense.css';  // Custom styles for MyExpense component
 const MyExpense = () => {
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
+  const API_URL = process.env.REACT_APP_API_URL;  
   const [predictedExpenses, setPredictedExpenses] = useState({
     total_expense: 0,
     category_expenses: {
@@ -25,7 +26,7 @@ const MyExpense = () => {
 
       try {
         const response = await axios.get(
-          `http://127.0.0.1:5000/api/predictions/get-prediction?month=${currentMonth}&year=${currentYear}`
+          `${API_URL}/api/predictions/get-prediction?month=${currentMonth}&year=${currentYear}`
         );
 
         if (response.data) {
@@ -83,7 +84,7 @@ const MyExpense = () => {
     console.log("expense data", expenseData); // Ensure the data is correctly structured
 
     try {
-      await axios.post('http://127.0.0.1:5000/api/expenses', expenseData);  // Ensure the correct endpoint
+      await axios.post(`${API_URL}/api/expenses`, expenseData);  // Ensure the correct endpoint
       alert('Expense recorded successfully!');
       // Reset the form fields after submission
       setAmount('');

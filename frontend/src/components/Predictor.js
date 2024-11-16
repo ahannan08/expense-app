@@ -13,6 +13,7 @@ const Predictor = () => {
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
   const [predictionExists, setPredictionExists] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL;  
   const navigate = useNavigate();
 
   // Check if prediction exists when month or year changes
@@ -32,7 +33,7 @@ const Predictor = () => {
     };
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/api/predict-category', payload);
+      const response = await axios.post(`${API_URL}/api/predict-category`, payload);
       const { total_expense, category_expenses } = response.data;
       setPrediction({
         totalExpense: total_expense,

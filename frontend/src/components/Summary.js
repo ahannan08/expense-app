@@ -20,11 +20,13 @@ const Summary = () => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [isDataAvailable, setIsDataAvailable] = useState(true);
   const navigate = useNavigate(); // Initialize the navigate function
+  const API_URL = process.env.REACT_APP_API_URL;  // Default to local URL for development
+
 
   useEffect(() => {
     const fetchMonthlyExpenses = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/expenses/monthly-summary', {
+        const response = await axios.get(`${API_URL}/api/expenses/monthly-summary`, {
           params: { month: selectedMonth, year: selectedYear }
         });
 

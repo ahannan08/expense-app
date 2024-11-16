@@ -5,13 +5,17 @@ import './styles/Gexpenses.css';  // Make sure to include the CSS for styling
 
 const Gexpenses = () => {
   const [expenses, setExpenses] = useState([]);
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
+   // Initialize the navigate function
+
+   const API_URL = process.env.REACT_APP_API_URL;  // Default to local URL for development
+
 
   useEffect(() => {
     // Fetch past expenses from the backend
     const fetchExpenses = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/x');
+        const response = await axios.get(`${API_URL}/api/x`);
         setExpenses(response.data); // Set the expenses data from the backend response
       } catch (error) {
         console.error('Error fetching expenses:', error);
