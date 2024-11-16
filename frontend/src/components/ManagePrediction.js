@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const ManagePrediction = ({ prediction, budget, month, year, predictionExists }) => {
 
-  const API_URL = process.env.REACT_APP_API_URL;  // Default to local URL for development
+  const API_URL = process.env.REACT_APP_API_BASE_URL;  // Default to local URL for development
 
   const handleSaveOrUpdatePrediction = async () => {
     const payload = {

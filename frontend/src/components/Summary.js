@@ -20,7 +20,7 @@ const Summary = () => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [isDataAvailable, setIsDataAvailable] = useState(true);
   const navigate = useNavigate(); // Initialize the navigate function
-  const API_URL = process.env.REACT_APP_API_URL;  // Default to local URL for development
+  const API_URL = process.env.REACT_APP_API_BASE_URL;  // Default to local URL for development
 
 
   useEffect(() => {

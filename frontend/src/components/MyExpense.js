@@ -6,7 +6,7 @@ import './styles/MyExpense.css';  // Custom styles for MyExpense component
 const MyExpense = () => {
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
-  const API_URL = process.env.REACT_APP_API_URL;  
+  const API_URL = process.env.REACT_APP_API_BASE_URL;  
   const [predictedExpenses, setPredictedExpenses] = useState({
     total_expense: 0,
     category_expenses: {

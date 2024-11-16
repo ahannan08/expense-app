@@ -13,7 +13,7 @@ const Predictor = () => {
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
   const [predictionExists, setPredictionExists] = useState(false);
-  const API_URL = process.env.REACT_APP_API_URL;  
+  const API_URL = process.env.REACT_APP_API_BASE_URL;  
   const navigate = useNavigate();
 
   // Check if prediction exists when month or year changes
