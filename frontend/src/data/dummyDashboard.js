@@ -1,0 +1,51 @@
+/** Sample dashboard payload when the API is unavailable (demo / offline). */
+export const DUMMY_DASHBOARD = {
+  recent_expenses: [
+    { id: 1, category: 'Food', amount: 4200, month: 10, year: 2025 },
+    { id: 2, category: 'Petrol', amount: 3500, month: 10, year: 2025 },
+    { id: 3, category: 'Entertainment', amount: 1200, month: 10, year: 2025 },
+    { id: 4, category: 'Shopping', amount: 2800, month: 9, year: 2025 },
+    { id: 5, category: 'Gym', amount: 1500, month: 9, year: 2025 },
+    { id: 6, category: 'Snacks', amount: 650, month: 9, year: 2025 },
+  ],
+  recent_predictions: [
+    {
+      id: 1,
+      month: 10,
+      year: 2025,
+      budget: 25000,
+      total_expense: 22340.5,
+      budget_status: 'Under Budget',
+      category_expenses: {
+        Food: 5200,
+        Entertainment: 1800,
+        Sports: 900,
+        Shopping: 4100,
+        Gym: 1500,
+        Petrol: 3800,
+        Travel: 2100,
+        Snacks: 840.5,
+        Misc: 2100,
+      },
+    },
+    {
+      id: 2,
+      month: 9,
+      year: 2025,
+      budget: 22000,
+      total_expense: 24180,
+      budget_status: 'Over Budget',
+      category_expenses: {
+        Food: 4800,
+        Entertainment: 2200,
+        Sports: 1100,
+        Shopping: 5200,
+        Gym: 1500,
+        Petrol: 3600,
+        Travel: 1800,
+        Snacks: 980,
+        Misc: 3000,
+      },
+    },
+  ],
+};

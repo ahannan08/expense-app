@@ -1,0 +1,119 @@
+.prediction-banner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 1.75rem;
+  padding: 1.5rem 1.75rem;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #3b82f6 100%);
+  border-radius: var(--radius);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+
+.prediction-banner-eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
+}
+
+.prediction-banner-title {
+  margin: 0 0 0.65rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.prediction-banner-lead {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  opacity: 0.95;
+  max-width: 42rem;
+}
+
+.prediction-banner-steps {
+  margin: 0 0 1.25rem;
+  padding-left: 1.15rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  opacity: 0.92;
+}
+
+.prediction-banner-steps li {
+  margin-bottom: 0.5rem;
+}
+
+.prediction-banner-steps strong {
+  font-weight: 600;
+}
+
+.prediction-banner-cta {
+  background: #fff !important;
+  color: var(--primary) !important;
+  text-decoration: none;
+}
+
+.prediction-banner-cta:hover {
+  background: #f1f5f9 !important;
+}
+
+.prediction-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.flow-node {
+  padding: 0.65rem 0.85rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.flow-node-accent {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.flow-arrow {
+  text-align: center;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.sample-data-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.sample-data-notice .chip {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .prediction-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .prediction-banner-visual {
+    order: -1;
+  }
+}

@@ -1,9 +1,10 @@
 from extensions import db
 import datetime
 
+
 class Expense(db.Model):
-    __tablename__ = 'expenses'
-    
+    __tablename__ = "expenses"
+
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.Float, nullable=False)
     category = db.Column(db.String(100), nullable=False)
@@ -15,11 +16,12 @@ class Expense(db.Model):
         return f"<Expense(amount={self.amount}, category={self.category}, month={self.month}, year={self.year})>"
 
     def to_dict(self):
+        created = self.created_at.isoformat() if self.created_at else None
         return {
-            'id': self.id,
-            'amount': self.amount,
-            'category': self.category,
-            'month': self.month,
-            'year': self.year,
-            'created_at': self.created_at
+            "id": self.id,
+            "amount": self.amount,
+            "category": self.category,
+            "month": self.month,
+            "year": self.year,
+            "created_at": created,
         }

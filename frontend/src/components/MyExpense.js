@@ -1,75 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import './styles/MyExpense.css';  // Custom styles for MyExpense component
+import api from '../api/client';
+import Layout from './Layout';
+import './styles/shared.css';
+import './styles/MyExpense.css';
 
 const MyExpense = () => {
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
-  const API_URL = process.env.REACT_APP_API_BASE_URL;  
+  const [toast, setToast] = useState(null);
   const [predictedExpenses, setPredictedExpenses] = useState({
     total_expense: 0,
-    category_expenses: {
-      entertainment: 0,
-      food: 0,
-    },
+    category_expenses: { food: 0, entertainment: 0 },
     budgetStatus: '',
   });
 
-  const { state } = useLocation(); // Retrieve the prediction data passed via navigate
-
   useEffect(() => {
-    // Fetch prediction data from the server for the current month and year
     const fetchPrediction = async () => {
-      const currentMonth = new Date().getMonth() + 1; // Current month (1-based)
-      const currentYear = new Date().getFullYear(); // Current year
+      const currentMonth = new Date().getMonth() + 1;
+      const currentYear = new Date().getFullYear();
 
       try {
-        const response = await axios.get(
-          `${API_URL}/api/predictions/get-prediction?month=${currentMonth}&year=${currentYear}`
-        );
+        const response = await api.get('/api/predictions/get-prediction', {
+          params: { month: currentMonth, year: currentYear },
+        });
 
-        if (response.data) {
+        if (response.data && response.data.total_expense !== undefined) {
+          const cats = response.data.category_expenses || {};
           setPredictedExpenses({
             total_expense: response.data.total_expense || 0,
             category_expenses: {
-              food: response.data.category_expenses.Food || 0,
-              entertainment: response.data.category_expenses.Entertainment || 0,
+              food: cats.Food || 0,
+              entertainment: cats.Entertainment || 0,
             },
             budgetStatus: response.data.budget_status || 'No Prediction',
           });
-        } else {
-          setPredictedExpenses({
-            total_expense: 0,
-            category_expenses: {
-              food: 0,
-              entertainment: 0,
-            },
-            budgetStatus: 'No Prediction',
-          });
         }
-      } catch (error) {
-        console.error('Error fetching prediction data:', error);
+      } catch {
         setPredictedExpenses({
           total_expense: 0,
-          category_expenses: {
-            food: 0,
-            entertainment: 0,
-          },
-          budgetStatus: 'Error fetching prediction',
+          category_expenses: { food: 0, entertainment: 0 },
+          budgetStatus: 'No prediction for this month',
         });
       }
     };
 
     fetchPrediction();
-  }, []); // Empty dependency array to fetch prediction on mount
+  }, []);
 
   const categories = [
-    'Food', 'Sports', 'Shopping', 'Travel', 'Misc', 'Snacks', 'Petrol', 'Gym', 'Entertainment'
+    'Food', 'Sports', 'Shopping', 'Travel', 'Misc', 'Snacks', 'Petrol', 'Gym', 'Entertainment',
   ];
 
-  const handleCategoryChange = (event) => {
-    setCategory(event.target.value); // Single selection, no array
+  const showToast = (message) => {
+    setToast(message);
+    setTimeout(() => setToast(null), 3000);
   };
 
   const handlePostExpense = async (event) => {
@@ -77,99 +61,95 @@ const MyExpense = () => {
 
     const expenseData = {
       amount: parseFloat(amount),
-      category: category,  // Use the selected category (single value)
-      month: new Date().getMonth() + 1, // Current month (1-based)
-      year: new Date().getFullYear(),   // Current year
+      category,
+      month: new Date().getMonth() + 1,
+      year: new Date().getFullYear(),
     };
-    console.log("expense data", expenseData); // Ensure the data is correctly structured
 
     try {
-      await axios.post(`${API_URL}/api/expenses`, expenseData);  // Ensure the correct endpoint
-      alert('Expense recorded successfully!');
-      // Reset the form fields after submission
+      await api.post('/api/expenses', expenseData);
+      showToast('Expense recorded successfully');
       setAmount('');
       setCategory('');
     } catch (error) {
       console.error('Error posting expense:', error);
-      alert('Error recording expense.');
+      showToast('Error recording expense');
     }
   };
 
-  // Array of month names for better formatting
   const monthNames = [
-    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December',
   ];
-
-  // Current month name
   const currentMonthName = monthNames[new Date().getMonth()];
 
-  // Conditional styling for budget status
-  const budgetStatusStyle = predictedExpenses.budgetStatus === 'Over Budget' 
-    ? { color: 'red' }
-    : predictedExpenses.budgetStatus === 'Under Budget'
-    ? { color: 'green' }
-    : {};
+  const statusClass =
+    predictedExpenses.budgetStatus === 'Over Budget'
+      ? 'status-over'
+      : predictedExpenses.budgetStatus === 'Under Budget'
+        ? 'status-under'
+        : '';
 
   return (
-    <div className="my-expense-container">
-      {/* Navbar */}
-      <div className="navbar">
-      <Link to="/prediction" className="nav-link">Prediction</Link>
-        <Link to="/get-expenses" className="nav-link">My Expenses</Link>
-        <Link to="/summary" className="nav-link">Summary</Link>
-      </div>
+    <Layout title="Log expense" subtitle={`Record spending for ${currentMonthName}`}>
+      {toast && <div className="toast" role="status">{toast}</div>}
 
-      {/* Predicted Expenses Section */}
-      <div className="predicted-expenses">
-        <h2>Predicted Expenses for {currentMonthName}</h2> {/* Display current month */}
-        <ul>
-          {Object.entries(predictedExpenses.category_expenses).map(([category, expense]) => (
-            <li key={category}>
-              <strong>{category.charAt(0).toUpperCase() + category.slice(1)}:</strong> Rs {expense.toFixed(2)}
-            </li>
-          ))}
-        </ul>
-        <h3 className="total-expense">Total Expense: Rs {predictedExpenses.total_expense.toFixed(2)}</h3> {/* Larger font size */}
-        <h3 style={budgetStatusStyle}>Status: {predictedExpenses.budgetStatus}</h3>  {/* Display budget status with conditional color */}
-      </div>
+      <div className="log-expense-grid">
+        <section className="card predicted-expenses">
+          <h2 className="card-title">Prediction snapshot — {currentMonthName}</h2>
+          <ul className="prediction-categories">
+            {Object.entries(predictedExpenses.category_expenses).map(([cat, expense]) => (
+              <li key={cat}>
+                <span>{cat.charAt(0).toUpperCase() + cat.slice(1)}</span>
+                <span>Rs {Number(expense).toFixed(2)}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="total-line">
+            Total: <strong>Rs {predictedExpenses.total_expense.toFixed(2)}</strong>
+          </p>
+          <p className={`status-line ${statusClass}`}>Status: {predictedExpenses.budgetStatus}</p>
+        </section>
 
-      {/* Expense Form */}
-      <div className="expense-form">
-        <h2>Post an Expense</h2>
-        <form onSubmit={handlePostExpense}>
-          <div className="form-group">
-            <label>Amount</label>
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Category</label>
-            <div className="category-radio-group">
-              {categories.map((cat) => (
-                <div key={cat}>
-                  <input
-                    type="radio"
-                    id={cat}
-                    name="category"
-                    value={cat}
-                    onChange={handleCategoryChange}
-                    checked={category === cat}
-                  />
-                  <label htmlFor={cat}>{cat}</label>
-                </div>
-              ))}
+        <section className="card expense-form">
+          <h2 className="card-title">New expense</h2>
+          <form onSubmit={handlePostExpense}>
+            <div className="form-group">
+              <label htmlFor="amount">Amount (Rs)</label>
+              <input
+                id="amount"
+                type="number"
+                min="0"
+                step="0.01"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                required
+              />
             </div>
-          </div>
 
-          <button type="submit">Post Expense</button>
-        </form>
+            <div className="form-group">
+              <label>Category</label>
+              <div className="category-grid">
+                {categories.map((cat) => (
+                  <label key={cat} className={`category-pill${category === cat ? ' selected' : ''}`}>
+                    <input
+                      type="radio"
+                      name="category"
+                      value={cat}
+                      onChange={() => setCategory(cat)}
+                      checked={category === cat}
+                    />
+                    {cat}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <button type="submit" className="btn btn-primary">Post expense</button>
+          </form>
+        </section>
       </div>
-    </div>
+    </Layout>
   );
 };
 

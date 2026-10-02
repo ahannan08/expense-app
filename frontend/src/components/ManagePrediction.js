@@ -1,46 +1,57 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import api from '../api/client';
 
-const ManagePrediction = ({ prediction, budget, month, year, predictionExists }) => {
-
-  const API_URL = process.env.REACT_APP_API_BASE_URL;  // Default to local URL for development
+const ManagePrediction = ({
+  prediction,
+  budget,
+  month,
+  year,
+  predictionExists,
+  onSaved,
+}) => {
+  const [saving, setSaving] = useState(false);
 
   const handleSaveOrUpdatePrediction = async () => {
     const payload = {
-      month: parseInt(month),
-      year: parseInt(year),
-      budget: parseInt(budget),
+      month: parseInt(month, 10),
+      year: parseInt(year, 10),
+      budget: parseInt(budget, 10),
       total_expense: prediction.totalExpense,
-      budget_status: prediction.totalExpense > parseFloat(budget) ? 'Over Budget' : 'Under Budget',
+      budget_status:
+        prediction.totalExpense > parseFloat(budget) ? 'Over Budget' : 'Under Budget',
       category_expenses: prediction.categoryExpenses,
     };
 
+    setSaving(true);
     try {
       if (predictionExists) {
-        const confirmUpdate = window.confirm('Prediction for this month already exists. Do you want to update it?');
+        const confirmUpdate = window.confirm(
+          'Prediction for this month already exists. Do you want to update it?'
+        );
         if (confirmUpdate) {
-          payload.confirm = true;  // Adding confirm flag to payload
-          await axios.post(`${API_URL}/api/predictions/update-all-predictions`, [payload]);
-          alert('Prediction updated successfully.');
+          payload.confirm = true;
+          await api.post('/api/predictions/update-all-predictions', [payload]);
+          onSaved?.();
         }
       } else {
-        // Save new prediction
-        const response = await axios.post(`${API_URL}/api/predictions/save-prediction`, payload);
-        if (response.status === 200) {
-          alert('Prediction saved successfully.');
-        } else {
-          alert('Error saving prediction.');
-        }
+        await api.post('/api/predictions/save-prediction', payload);
+        onSaved?.();
       }
     } catch (error) {
       console.error('Error saving/updating prediction:', error);
-      alert('An error occurred while processing the prediction.');
+    } finally {
+      setSaving(false);
     }
   };
 
   return (
-    <button onClick={handleSaveOrUpdatePrediction}>
-      {predictionExists ? 'Update Prediction' : 'Save Prediction'}
+    <button
+      type="button"
+      className="btn btn-primary"
+      onClick={handleSaveOrUpdatePrediction}
+      disabled={saving}
+    >
+      {saving ? 'Saving…' : predictionExists ? 'Update prediction' : 'Save prediction'}
     </button>
   );
 };

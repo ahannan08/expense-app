@@ -1,0 +1,59 @@
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.home-actions a {
+  text-decoration: none;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.card-footer-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.card-footer-link:hover {
+  text-decoration: underline;
+}
+
+.prediction-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.prediction-item {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.prediction-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.prediction-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.prediction-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}

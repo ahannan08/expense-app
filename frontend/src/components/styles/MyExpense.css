@@ -1,128 +1,75 @@
-/* MyExpense Component Styles */
-.my-expense-container {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.log-expense-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 1.25rem;
+  align-items: start;
 }
 
-.go-home-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+@media (max-width: 768px) {
+  .log-expense-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-.go-home-button:hover {
-  background-color: #45a049;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-around;
-  background-color: #333;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 20px;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-}
-
-.navbar a:hover {
-  text-decoration: underline;
-}
-
-.predicted-expenses {
-  margin-top: 30px;
-  text-align: center;  /* Center the predicted expenses title */
-}
-
-.predicted-expenses h2 {
-  font-size: 28px;  /* Increased font size for better visibility */
-  margin-bottom: 15px;
-}
-
-.predicted-expenses ul {
+.prediction-categories {
   list-style: none;
-  padding-left: 0;
+  margin: 0 0 1rem;
+  padding: 0;
 }
 
-.predicted-expenses li {
-  font-size: 18px;
-  margin: 8px 0;
-}
-
-.expense-form {
-  margin-top: 40px;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.expense-form h2 {
-  font-size: 22px;
-  margin-bottom: 15px;
-}
-
-.expense-form .form-group {
-  margin-bottom: 20px;
-}
-
-.expense-form label {
-  font-size: 16px;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.expense-form input[type="number"],
-.expense-form button {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  margin-top: 5px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-.expense-form button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.expense-form button:hover {
-  background-color: #45a049;
-}
-
-.category-radio-group {
+.prediction-categories li {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
 }
 
-.category-radio-group div {
-  margin-right: 15px;
-  margin-bottom: 10px;
+.total-line {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 1.05rem;
 }
 
-.category-radio-group label {
-  font-size: 20px;
-  margin-left: 5px;
+.status-line {
+  margin: 0;
+  font-weight: 600;
 }
 
-.total-expense {
-  font-size: 30px;  /* Increased font size for Total Expense */
-  font-weight: bold;
+.status-over {
+  color: var(--danger);
+}
+
+.status-under {
+  color: var(--success);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+
+.category-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.category-pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.category-pill.selected {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 600;
 }
